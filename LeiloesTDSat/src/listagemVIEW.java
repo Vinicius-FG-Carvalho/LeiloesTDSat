@@ -201,25 +201,21 @@ public class listagemVIEW extends javax.swing.JFrame {
     private javax.swing.JTable listaProdutos;
     // End of variables declaration//GEN-END:variables
 
-    private void listarProdutos(){
-        try {
-            ProdutosDAO produtosdao = new ProdutosDAO();
-            
-            DefaultTableModel model = (DefaultTableModel) listaProdutos.getModel();
-            model.setNumRows(0);
-            
-            ArrayList<ProdutosDTO> listagem = produtosdao.listarProdutos();
-            
-            for(int i = 0; i < listagem.size(); i++){
-                model.addRow(new Object[]{
-                    listagem.get(i).getId(),
-                    listagem.get(i).getNome(),
-                    listagem.get(i).getValor(),
-                    listagem.get(i).getStatus()
-                });
-            }
-        } catch (Exception e) {
-        }
+    public void listarProdutos() {
+    ProdutosDAO dao = new ProdutosDAO();
+    ArrayList<ProdutosDTO> produtos = dao.listarProdutos();
     
+    DefaultTableModel modelo = (DefaultTableModel) listaProdutos.getModel();
+    modelo.setNumRows(0);  // Limpa a tabela
+
+    for (ProdutosDTO produto : produtos) {
+        modelo.addRow(new Object[]{
+            produto.getId(),
+            produto.getNome(),
+            produto.getValor(),
+            produto.getStatus()
+        });
     }
+}
+
 }
